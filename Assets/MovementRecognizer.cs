@@ -29,6 +29,8 @@ public class MovementRecognizer : MonoBehaviour
     private List<Gesture> trainingSet = new List<Gesture>();
     private bool isMoving = false;
     private List<Vector3> positionsList = new List<Vector3>();
+
+    public GameObject projectileSpawnerObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +63,7 @@ public class MovementRecognizer : MonoBehaviour
 
     void StartMovement()
     {
+        projectileSpawnerObj.GetComponent<ProjectileSpawner>().whichHand = movementSource;
         isMoving = true;
         positionsList.Clear();
         positionsList.Add(movementSource.position);
@@ -96,10 +99,11 @@ public class MovementRecognizer : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
-            Debug.Log(result.GestureClass + result.Score);
+            //Debug.Log(result.GestureClass + result.Score);
             if (result.Score > recognitionThreshold)
             {
                 OnRecognized.Invoke(result.GestureClass);
+                
             }
 
         }

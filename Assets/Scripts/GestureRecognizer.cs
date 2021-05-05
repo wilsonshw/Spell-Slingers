@@ -7,7 +7,7 @@ using System.IO;
 
 using UnityEngine.Events;
 
-public class MovementRecognizer : MonoBehaviour
+public class GestureRecognizer : MonoBehaviour
 {
 
     public XRNode inputSource;
@@ -24,14 +24,21 @@ public class MovementRecognizer : MonoBehaviour
 
     [System.Serializable]
     public class UnityStringEvent : UnityEvent<string> { }
-    public UnityStringEvent OnRecognized;
+    public UnityStringEvent OnRecognizedProjectile;
+    public UnityStringEvent OnRecognizedStatic;
 
     private List<Gesture> trainingSet = new List<Gesture>();
     private bool isMoving = false;
     private List<Vector3> positionsList = new List<Vector3>();
 
     public GameObject projectileSpawnerObj;
+    public GameObject staticSpawnerObj;
     // Start is called before the first frame update
+
+    RaycastHit hit;
+    bool hitGround;
+    Vector3 groundHitPosition;
+
     void Start()
     {
         string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
@@ -47,28 +54,51 @@ public class MovementRecognizer : MonoBehaviour
         InputHelpers.IsPressed(InputDevices.GetDeviceAtXRNode(inputSource), inputButton, out bool isPressed, inputThreshold);
 
         //start movement
-        if(!isMoving && isPressed)
+        if (!isMoving && isPressed)
         {
+            if (Physics.Raycast(movementSource.position, movementSource.forward, out hit, 50))
+            {
+                if (hit.transform.tag == "Ground")
+                {
+                    //Debug.Log("hitting ground!!!");
+                    if (!hitGround)
+                    {
+                        hitGround = true;
+                        groundHitPosition = hit.point;
+                    }
+                }
+            }
+
             StartMovement();
+
         }
-        else if(isMoving && !isPressed) //ending movement
+        else if (isMoving && !isPressed) //ending movement
         {
             EndMovement();
         }
-        else if(isMoving && isPressed) //updating movement
+        else if (isMoving && isPressed) //updating movement
         {
             UpdateMovement();
         }
+
     }
 
     void StartMovement()
     {
-        projectileSpawnerObj.GetComponent<ProjectileSpawner>().whichHand = movementSource;
+        if (!hitGround)
+        {
+            projectileSpawnerObj.GetComponent<ProjectileSpawner>().whichHand = movementSource;
+        }
+        else
+        {
+            staticSpawnerObj.GetComponent<StaticSpawner>().spawnPosition = groundHitPosition;
+        }
+
         isMoving = true;
         positionsList.Clear();
         positionsList.Add(movementSource.position);
 
-        if(debugCubePrefab)
+        if (debugCubePrefab)
             Destroy(Instantiate(debugCubePrefab, movementSource.position, Quaternion.identity), 3);
     }
 
@@ -79,7 +109,7 @@ public class MovementRecognizer : MonoBehaviour
         //Create gesture from position list
         Point[] pointArray = new Point[positionsList.Count];
 
-        for (int i = 0;i<positionsList.Count;i++)
+        for (int i = 0; i < positionsList.Count; i++)
         {
             Vector2 screenPoint = Camera.main.WorldToScreenPoint(positionsList[i]);
             pointArray[i] = new Point(screenPoint.x, screenPoint.y, 0);
@@ -88,7 +118,7 @@ public class MovementRecognizer : MonoBehaviour
         Gesture newGesture = new Gesture(pointArray);
 
         //Add new gesture to training set
-        if(creationMode)
+        if (creationMode)
         {
             newGesture.Name = newGestureName;
             trainingSet.Add(newGesture);
@@ -99,11 +129,22 @@ public class MovementRecognizer : MonoBehaviour
         else
         {
             Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
-            //Debug.Log(result.GestureClass + result.Score);
+            Debug.Log(result.GestureClass + result.Score);
             if (result.Score > recognitionThreshold)
             {
-                OnRecognized.Invoke(result.GestureClass);
-                
+                if (result.GestureClass != "EarthWall")
+                    OnRecognizedProjectile.Invoke(result.GestureClass);
+                else if (result.GestureClass == "EarthWall")
+                {
+                    if (hitGround)
+                    {
+                        Debug.Log("cast earth");
+                        OnRecognizedStatic.Invoke(result.GestureClass);
+                        hitGround = false;
+                    }
+                }
+
+
             }
 
         }

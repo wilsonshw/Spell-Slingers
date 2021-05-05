@@ -121,6 +121,89 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &168040733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 168040735}
+  - component: {fileID: 168040734}
+  m_Layer: 0
+  m_Name: GestureRecognizier_L
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &168040734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168040733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b4de2b0aee99d4f9796e3fd28f1f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputSource: 4
+  inputButton: 2
+  inputThreshold: 0.1
+  movementSource: {fileID: 1552529000}
+  newPosThresholdDistance: 0.05
+  debugCubePrefab: {fileID: 1787683716470360977, guid: 0656890a70a03c24c8574bae6ff40649,
+    type: 3}
+  creationMode: 1
+  newGestureName: 
+  recognitionThreshold: 0.9
+  OnRecognizedProjectile:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 659060295}
+        m_MethodName: Spawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnRecognizedStatic:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 749732001}
+        m_MethodName: Spawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  projectileSpawnerObj: {fileID: 659060294}
+  staticSpawnerObj: {fileID: 749732000}
+--- !u!4 &168040735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168040733}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &174968533
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +595,7 @@ GameObject:
   - component: {fileID: 313890668}
   - component: {fileID: 313890667}
   m_Layer: 0
-  m_Name: MovementRecognizier_R
+  m_Name: GestureRecognizier_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -527,7 +610,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 313890666}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a59b3bff9a3514d419bafd288d7579e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 65b4de2b0aee99d4f9796e3fd28f1f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inputSource: 5
@@ -540,7 +623,7 @@ MonoBehaviour:
   creationMode: 0
   newGestureName: O
   recognitionThreshold: 0.9
-  OnRecognized:
+  OnRecognizedProjectile:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 659060295}
@@ -554,7 +637,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnRecognizedStatic:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 749732001}
+        m_MethodName: Spawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   projectileSpawnerObj: {fileID: 659060294}
+  staticSpawnerObj: {fileID: 749732000}
 --- !u!4 &313890668
 Transform:
   m_ObjectHideFlags: 0
@@ -878,6 +976,52 @@ Transform:
   m_GameObject: {fileID: 659060294}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &749732000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749732002}
+  - component: {fileID: 749732001}
+  m_Layer: 0
+  m_Name: StaticSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &749732001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749732000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab3d3eeb022cfec4cb8b15e970139881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staticPrefabs:
+  - {fileID: 5512673704642046781, guid: c8fd4e683d9967049a6acdf838d6944c, type: 3}
+  spawnPosition: {x: 0, y: 0, z: 0}
+--- !u!4 &749732002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749732000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1247,7 +1391,7 @@ GameObject:
   - component: {fileID: 882376355}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1775,74 +1919,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8273333397029077134}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1078966732
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1078966734}
-  - component: {fileID: 1078966733}
-  m_Layer: 0
-  m_Name: MovementRecognizier_L
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1078966733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078966732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a59b3bff9a3514d419bafd288d7579e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputSource: 4
-  inputButton: 2
-  inputThreshold: 0.1
-  movementSource: {fileID: 1552529000}
-  newPosThresholdDistance: 0.05
-  debugCubePrefab: {fileID: 1787683716470360977, guid: 0656890a70a03c24c8574bae6ff40649,
-    type: 3}
-  creationMode: 0
-  newGestureName: O
-  recognitionThreshold: 0.9
-  OnRecognized:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 659060295}
-        m_MethodName: Spawn
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  projectileSpawnerObj: {fileID: 659060294}
---- !u!4 &1078966734
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1078966732}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1127271266
 GameObject:
   m_ObjectHideFlags: 0

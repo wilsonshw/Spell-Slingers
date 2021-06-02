@@ -26,6 +26,7 @@ public class GestureRecognizer : MonoBehaviour
     public class UnityStringEvent : UnityEvent<string> { }
     public UnityStringEvent OnRecognizedProjectile;
     public UnityStringEvent OnRecognizedStatic;
+    public UnityStringEvent OnRecognizedSummon;
 
     private List<Gesture> trainingSet = new List<Gesture>();
     private bool isMoving = false;
@@ -132,7 +133,7 @@ public class GestureRecognizer : MonoBehaviour
             Debug.Log(result.GestureClass + result.Score);
             if (result.Score > recognitionThreshold)
             {
-                if (result.GestureClass != "EarthWall")
+                if (result.GestureClass != "EarthWall" && result.GestureClass != "Meteor")
                     OnRecognizedProjectile.Invoke(result.GestureClass);
                 else if (result.GestureClass == "EarthWall")
                 {
@@ -142,6 +143,10 @@ public class GestureRecognizer : MonoBehaviour
                         OnRecognizedStatic.Invoke(result.GestureClass);
                         hitGround = false;
                     }
+                }
+                else if(result.GestureClass == "Meteor")
+                {
+                    OnRecognizedSummon.Invoke(result.GestureClass);
                 }
 
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Singleton
 {
-    public class ObjectSpawner
+    public class ObjectSpawner : MonoBehaviour
     {
         public List<GameObject> objects;
         // Start is called before the first frame update

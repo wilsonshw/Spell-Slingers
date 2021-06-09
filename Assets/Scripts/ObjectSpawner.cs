@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectSpawner : MonoBehaviour
+namespace Singleton
 {
-    public List<GameObject> objects;
-    // Start is called before the first frame update
-    public void Spawn(string objectName)
+    public class ObjectSpawner
     {
-        foreach (var item in objects)
+        public List<GameObject> objects;
+        // Start is called before the first frame update
+        public void Spawn(string objectName)
         {
-            item.SetActive(objectName == item.name);
+            foreach (var item in objects)
+            {
+                item.SetActive(objectName == item.name);
+            }
         }
     }
 }

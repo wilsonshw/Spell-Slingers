@@ -13,7 +13,18 @@ public class LocomotionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(leftTeleRay)
+        TeleRay();
+    }
+
+    public bool CheckIfActivated(XRController controller)
+    {
+        InputHelpers.IsPressed(controller.inputDevice, teleportActivationButton, out bool isActivated, activationThreshold); //if trigger pressed beyond threshold, return true
+        return isActivated;
+    }
+
+    public void TeleRay()
+    {
+        if (leftTeleRay)
         {
             leftTeleRay.gameObject.SetActive(CheckIfActivated(leftTeleRay));
         }
@@ -22,11 +33,5 @@ public class LocomotionController : MonoBehaviour
         {
             rightTeleRay.gameObject.SetActive(CheckIfActivated(rightTeleRay));
         }
-    }
-
-    public bool CheckIfActivated(XRController controller)
-    {
-        InputHelpers.IsPressed(controller.inputDevice, teleportActivationButton, out bool isActivated, activationThreshold); //if trigger pressed beyond threshold, return true
-        return isActivated;
     }
 }

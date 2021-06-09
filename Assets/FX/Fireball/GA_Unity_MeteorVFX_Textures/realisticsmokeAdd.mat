@@ -13,6 +13,9 @@ Material:
 =======
   m_Name: fireball
   m_Shader: {fileID: 10720, guid: 0000000000000000f000000000000000, type: 0}
+<<<<<<< Updated upstream:Assets/FX/Fireball/GA_Unity_MeteorVFX_Textures/realisticsmokeAdd.mat
+>>>>>>> Stashed changes:Assets/FX/Fireball/fireball.mat
+=======
 >>>>>>> Stashed changes:Assets/FX/Fireball/fireball.mat
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,7 +23,12 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
+<<<<<<< Updated upstream:Assets/FX/Fireball/GA_Unity_MeteorVFX_Textures/realisticsmokeAdd.mat
   disabledShaderPasses: []
+=======
+  disabledShaderPasses:
+  - SHADOWCASTER
+>>>>>>> Stashed changes:Assets/FX/Fireball/fireball.mat
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -58,7 +66,16 @@ Material:
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
+<<<<<<< Updated upstream:Assets/FX/Fireball/GA_Unity_MeteorVFX_Textures/realisticsmokeAdd.mat
     - _DstBlend: 0
+=======
+    - _DistortionBlend: 0.5
+    - _DistortionEnabled: 0
+    - _DistortionStrength: 1
+    - _DistortionStrengthScaled: 0
+    - _DstBlend: 10
+    - _EmissionEnabled: 0
+>>>>>>> Stashed changes:Assets/FX/Fireball/fireball.mat
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -71,10 +88,10 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Surface: 0
+    - _SrcBlend: 5
+    - _Surface: 1
     - _WorkflowMode: 1
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

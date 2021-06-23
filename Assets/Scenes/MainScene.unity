@@ -680,7 +680,7 @@ MonoBehaviour:
   debugCubePrefab: {fileID: 1787683716470360977, guid: 0656890a70a03c24c8574bae6ff40649,
     type: 3}
   creationMode: 0
-  newGestureName: Meteor
+  newGestureName: O
   recognitionThreshold: 0.9
   OnRecognizedProjectile:
     m_PersistentCalls:

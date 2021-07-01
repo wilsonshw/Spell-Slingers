@@ -9,7 +9,9 @@ using UnityEngine.Events;
 
 public class GestureRecognizer : MonoBehaviour
 {
-
+    public string whichHand;
+    public GameObject summonSpawnerObj;
+    SummonSpawner summonScript;
     public XRNode inputSource;
     public InputHelpers.Button inputButton;
     public float inputThreshold = 0.1f;
@@ -42,6 +44,7 @@ public class GestureRecognizer : MonoBehaviour
 
     void Start()
     {
+        summonScript = summonSpawnerObj.GetComponent<SummonSpawner>();
         string[] gestureFiles = Directory.GetFiles(Application.persistentDataPath, "*.xml");
         foreach (var item in gestureFiles)
         {
@@ -134,22 +137,58 @@ public class GestureRecognizer : MonoBehaviour
             if (result.Score > recognitionThreshold)
             {
                 if (result.GestureClass != "EarthWall" && result.GestureClass != "Meteor")
-                    OnRecognizedProjectile.Invoke(result.GestureClass);
+                {
+                    if (result.GestureClass == "MeteorR")
+                    {
+                        if (whichHand == "right")
+                        {
+                            //Debug.Log("rightdone");
+                            summonScript.rightHandDone = true;
+                            if (summonScript.timer <= 0)
+                            {
+                                summonScript.timer = 0.5f;
+                            }
+                        }
+
+                        if (summonScript.rightHandDone && summonScript.leftHandDone && summonScript.timer > 0)
+                        {
+                            OnRecognizedSummon.Invoke(result.GestureClass);
+                            summonScript.rightHandDone = false;
+                            summonScript.leftHandDone = false;
+                            summonScript.timer = 0;
+                        }
+                    }
+                    else if (result.GestureClass == "MeteorL")
+                    {
+                        if (whichHand == "left")
+                        {
+                            //Debug.Log("leftdone");
+                            summonScript.leftHandDone = true;
+                            if (summonScript.timer <= 0)
+                            {
+                                summonScript.timer = 0.5f;
+                            }
+                        }
+
+                        if (summonScript.rightHandDone && summonScript.leftHandDone && summonScript.timer > 0)
+                        {
+                            //Debug.Log("aaaaa");
+                            OnRecognizedSummon.Invoke(result.GestureClass);
+                            summonScript.rightHandDone = false;
+                            summonScript.leftHandDone = false;
+                            summonScript.timer = 0;
+                        }
+                    }
+                }
                 else if (result.GestureClass == "EarthWall")
                 {
                     if (hitGround)
                     {
-                        Debug.Log("cast earth");
+                        //Debug.Log("cast earth");
                         OnRecognizedStatic.Invoke(result.GestureClass);
                         hitGround = false;
                     }
                 }
-                else if(result.GestureClass == "Meteor")
-                {
-                    OnRecognizedSummon.Invoke(result.GestureClass);
-                }
-
-
             }
 
         }

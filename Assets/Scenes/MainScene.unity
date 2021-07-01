@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -152,6 +152,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meteorPrefabs:
   - {fileID: 624698416058948006, guid: b82a6c58094f9274c869dfcf1b702fff, type: 3}
+  whichHand: 
+  timer: 0
+  rightHandDone: 0
+  leftHandDone: 0
 --- !u!4 &161453408
 Transform:
   m_ObjectHideFlags: 0
@@ -182,7 +186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &168040734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b4de2b0aee99d4f9796e3fd28f1f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whichHand: left
+  summonSpawnerObj: {fileID: 161453406}
   inputSource: 4
   inputButton: 2
   inputThreshold: 0.1
@@ -202,9 +208,9 @@ MonoBehaviour:
   newPosThresholdDistance: 0.05
   debugCubePrefab: {fileID: 1787683716470360977, guid: 0656890a70a03c24c8574bae6ff40649,
     type: 3}
-  creationMode: 1
-  newGestureName: 
-  recognitionThreshold: 0.9
+  creationMode: 0
+  newGestureName: MeteorL
+  recognitionThreshold: 0.8
   OnRecognizedProjectile:
     m_PersistentCalls:
       m_Calls:
@@ -643,6 +649,22 @@ Transform:
   m_Father: {fileID: 1939130427}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &219679293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 761414235}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1050963758}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &313890666
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +694,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b4de2b0aee99d4f9796e3fd28f1f71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whichHand: right
+  summonSpawnerObj: {fileID: 161453406}
   inputSource: 5
   inputButton: 2
   inputThreshold: 0.1
@@ -680,8 +704,8 @@ MonoBehaviour:
   debugCubePrefab: {fileID: 1787683716470360977, guid: 0656890a70a03c24c8574bae6ff40649,
     type: 3}
   creationMode: 0
-  newGestureName: O
-  recognitionThreshold: 0.9
+  newGestureName: MeteorR
+  recognitionThreshold: 0.8
   OnRecognizedProjectile:
     m_PersistentCalls:
       m_Calls:
@@ -1661,7 +1685,7 @@ RectTransform:
   - {fileID: 1462917154}
   - {fileID: 1909197600}
   m_Father: {fileID: 1050963758}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2168,7 +2192,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!4 &1027831073 stripped
 Transform:
@@ -2176,18 +2200,42 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8273333397029077134}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1050963757 stripped
+--- !u!1 &1050963757
 GameObject:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2e4cbe5b17183a941b4909c2ac2538c3,
     type: 3}
   m_PrefabInstance: {fileID: 761414235}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1050963758 stripped
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1050963762}
+  - component: {fileID: 1050963759}
+  - component: {fileID: 1050963760}
+  - component: {fileID: 1050963761}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1050963758
 Transform:
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2e4cbe5b17183a941b4909c2ac2538c3,
     type: 3}
   m_PrefabInstance: {fileID: 761414235}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 219679293}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 949084146}
+  m_Father: {fileID: 1943859870}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1050963759
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2232,6 +2280,20 @@ MonoBehaviour:
   currentHP: 0
   maxHP: 10
   healthBar: {fileID: 1909197601}
+--- !u!4 &1050963762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 761414235}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050963757}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1943859870}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1127271266
 GameObject:
   m_ObjectHideFlags: 0
@@ -3374,6 +3436,38 @@ Transform:
   - {fileID: 202557443}
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1943859869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 761414235}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943859870}
+  m_Layer: 0
+  m_Name: mousegolem (Missing Prefab)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1943859870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 761414235}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943859869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1050963762}
+  - {fileID: 1050963758}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2094994525
 GameObject:

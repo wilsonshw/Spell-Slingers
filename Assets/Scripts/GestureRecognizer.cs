@@ -17,6 +17,9 @@ public class GestureRecognizer : MonoBehaviour
     public float inputThreshold = 0.1f;
     public Transform movementSource;
 
+    [SerializeField]
+    private string[] gestureClass = { "Meteor", "MeteorR", "MeteorL", "Fireball", "DragonWall", "EarthWall" };
+
     public float newPosThresholdDistance = 0.05f;
     public GameObject debugCubePrefab;
     public bool creationMode = true; //create or recognize gesture
@@ -129,70 +132,110 @@ public class GestureRecognizer : MonoBehaviour
 
             string fileName = Application.persistentDataPath + "/" + newGestureName + ".xml";
             GestureIO.WriteGesture(pointArray, newGestureName, fileName);
+
+            CastTheSpell(newGesture);
         }
         else
         {
-            Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
-            Debug.Log(result.GestureClass + result.Score);
-            if (result.Score > recognitionThreshold)
-            {
-                if (result.GestureClass != "EarthWall" && result.GestureClass != "Meteor")
-                {
-                    if (result.GestureClass == "MeteorR")
-                    {
-                        if (whichHand == "right")
-                        {
-                            //Debug.Log("rightdone");
-                            summonScript.rightHandDone = true;
-                            if (summonScript.timer <= 0)
-                            {
-                                summonScript.timer = 0.5f;
-                            }
-                        }
+            CastTheSpell(newGesture);
+        }
+    }
 
-                        if (summonScript.rightHandDone && summonScript.leftHandDone && summonScript.timer > 0)
+    void CastTheSpell(Gesture newGesture)
+    {
+
+        Result result = PointCloudRecognizer.Classify(newGesture, trainingSet.ToArray());
+        Debug.Log(result.GestureClass + result.Score);
+
+        //Meteor = 0
+        //MetorR = 1
+        //MeteorL = 2
+        //Fireball = 3
+        //Dragon = 4
+        //Earthwall = 5
+
+        if (result.Score > recognitionThreshold)
+        {
+            if (result.GestureClass != gestureClass[5] && result.GestureClass != gestureClass[0])
+            {
+                if (result.GestureClass == gestureClass[1])
+                {
+                    if (whichHand == "right")
+                    {
+                        //Debug.Log("rightdone");
+                        summonScript.rightHandDone = true;
+                        if (summonScript.timer <= 0)
                         {
-                            OnRecognizedSummon.Invoke(result.GestureClass);
-                            summonScript.rightHandDone = false;
-                            summonScript.leftHandDone = false;
-                            summonScript.timer = 0;
+                            summonScript.timer = 0.5f;
                         }
                     }
-                    else if (result.GestureClass == "MeteorL")
-                    {
-                        if (whichHand == "left")
-                        {
-                            //Debug.Log("leftdone");
-                            summonScript.leftHandDone = true;
-                            if (summonScript.timer <= 0)
-                            {
-                                summonScript.timer = 0.5f;
-                            }
-                        }
 
-                        if (summonScript.rightHandDone && summonScript.leftHandDone && summonScript.timer > 0)
-                        {
-                            //Debug.Log("aaaaa");
-                            OnRecognizedSummon.Invoke(result.GestureClass);
-                            summonScript.rightHandDone = false;
-                            summonScript.leftHandDone = false;
-                            summonScript.timer = 0;
-                        }
+                    if (summonScript.rightHandDone && summonScript.leftHandDone && summonScript.timer > 0)
+                    {
+                        OnRecognizedSummon.Invoke(result.GestureClass);
+                        summonScript.rightHandDone = false;
+                        summonScript.leftHandDone = false;
+                        summonScript.timer = 0;
                     }
                 }
-                else if (result.GestureClass == "EarthWall")
+                else if (result.GestureClass == gestureClass[2])
+                {
+                    if (whichHand == "left")
+                    {
+                        //Debug.Log("leftdone");
+                        summonScript.leftHandDone = true;
+                        if (summonScript.timer <= 0)
+                        {
+                            summonScript.timer = 0.5f;
+                        }
+                    }
+
+                    if (summonScript.rightHandDone && summonScript.leftHandDone && summonScript.timer > 0)
+                    {
+                        //Debug.Log("aaaaa");
+                        OnRecognizedSummon.Invoke(result.GestureClass);
+                        summonScript.rightHandDone = false;
+                        summonScript.leftHandDone = false;
+                        summonScript.timer = 0;
+                    }
+                }
+                else if (result.GestureClass == gestureClass[3])
+                {
+                    OnRecognizedProjectile.Invoke(result.GestureClass);
+                    Debug.Log("Cast Fireball");
+                }
+                else if (result.GestureClass == gestureClass[4])
                 {
                     if (hitGround)
                     {
-                        //Debug.Log("cast earth");
+                        Debug.Log("cast dragon");
                         OnRecognizedStatic.Invoke(result.GestureClass);
                         hitGround = false;
                     }
                 }
             }
+            else if (result.GestureClass == gestureClass[5])
+            {
+                if (hitGround)
+                {
+                    //Debug.Log("cast earth");
+                    OnRecognizedStatic.Invoke(result.GestureClass);
+                    hitGround = false;
+                }
+            }
+            else if (result.GestureClass == gestureClass[4])
+            {
+                if (hitGround)
+                {
+                    Debug.Log("cast dragon");
+                    OnRecognizedStatic.Invoke(result.GestureClass);
+                    hitGround = false;
+                }
+            }
 
         }
     }
+
 
     void UpdateMovement()
     {

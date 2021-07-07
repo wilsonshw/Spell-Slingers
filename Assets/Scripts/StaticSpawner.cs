@@ -16,7 +16,7 @@ public class StaticSpawner : MonoBehaviour
             if (objectName == staticPrefabs[i].name)
             {
                 var staticInstantiate = Instantiate(staticPrefabs[i], spawnPosition, Quaternion.identity) as GameObject;
-                Destroy(staticInstantiate.gameObject, 3f);
+                Destroy(staticInstantiate.gameObject, 10f);
             }
         }
     }
